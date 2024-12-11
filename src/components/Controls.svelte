@@ -12,21 +12,28 @@
 </script>
 
 <div class="flex flex-col gap-4">
-  <div class="color-picker-container flex items-center justify-end gap-2">
+  <div class="form-group">
+    <label class="select-label-hidden" for="select-1">Device Selection</label>
+    <select class="select" id="select-1">
+      <option value="1">Phone</option>
+    </select>
+  </div>
+  <div class="color-picker-container flex w-full justify-end gap-2">
     <div
+      class="w-full flex flex-col"
       use:tooltip={{
         text: 'Change the color of the device',
         position: 'left',
         maxWidth: 'max-w-[200px]',
       }}
     >
-      <label for="colorPicker" class="text-sm">Device Color</label>
+      <p>Device color:</p>
       <input
         id="colorPicker"
         type="color"
         on:input={onColorChange}
         disabled={isDisabled}
-        class="color-picker-input"
+        class="color-picker-input w-full"
       />
     </div>
   </div>
@@ -47,22 +54,4 @@
 </div>
 
 <style>
-  .color-picker-input {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .color-picker-input:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  button[disabled] {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 </style>

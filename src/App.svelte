@@ -34,9 +34,9 @@
 
 <main data-theme={$theme}>
   <h2
-    class="text-center mb-2 font-GamjaFlower tracking-widest hover:tracking-[0.7rem] transition-all duration-700 font-bold"
+    class="text-center mb-2 tracking-widest hover:tracking-[0.7rem] transition-all duration-700 font-bold"
   >
-    3D Mockup
+    3D Mockups
   </h2>
   <div class="flex flex-col gap-4">
     <ErrorBoundary
@@ -44,12 +44,30 @@
       onError={handlePreviewError}
     >
       <div class="preview-container">
-        <ThreeViewer
-          imageData={$selection.exportedImage?.data}
-          {selectedColor}
-          onScreenshotCapture={handleScreenshotCapture}
-        />
         <StatusDisplay />
+        <div class=" border-gray-300 border-2">
+          <ThreeViewer
+            imageData={$selection.exportedImage?.data}
+            {selectedColor}
+            onScreenshotCapture={handleScreenshotCapture}
+          />
+        </div>
+        <div class="text-xs">
+          Model made by <a
+            href="https://sketchfab.com/3d-models/free-iphone-13-pro-2021-a35156d91cf44e70a2fdfeade54ae0b2"
+            >SDC PERFORMANCE™️</a
+          >
+          <br />
+          under
+          <a
+            target="_blank"
+            href="https://creativecommons.org/licenses/by/4.0/"
+          >
+            CC 4.0</a
+          >
+          <br />
+          Recommended resolution: 2532px x 1170px
+        </div>
       </div>
     </ErrorBoundary>
 
