@@ -1,35 +1,45 @@
-<div class="flex justify-center items-center w-full p-4">
-  <div class="animate-[spin_1.5s_ease-in-out_infinite] rounded-full h-6 w-6">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="theme-colored-spinner"
-    >
-      <path d="M12 2v4" />
-      <path d="m16.2 7.8 2.9-2.9" />
-      <path d="M18 12h4" />
-      <path d="m16.2 16.2 2.9 2.9" />
-      <path d="M12 18v4" />
-      <path d="m4.9 19.1 2.9-2.9" />
-      <path d="M2 12h4" />
-      <path d="m4.9 4.9 2.9 2.9" />
-    </svg>
-  </div>
+<script lang="ts">
+  export let size: 'small' | 'medium' | 'large' = 'medium';
+
+  const sizes = {
+    small: 'w-4 h-4',
+    medium: 'w-6 h-6',
+    large: 'w-8 h-8',
+  };
+
+  $: sizeClass = sizes[size];
+</script>
+
+<div class="spinner {sizeClass}" role="status">
+  <span class="sr-only">Loading...</span>
 </div>
 
 <style>
-  :global([data-theme='light']) .theme-colored-spinner {
-    stroke: var(--la-primary);
+  .spinner {
+    border: 2px solid var(--surface-color);
+    border-top: 2px solid var(--text-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
   }
 
-  :global([data-theme='dark']) .theme-colored-spinner {
-    stroke: var(--da-primary);
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>

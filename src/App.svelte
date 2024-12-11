@@ -1,6 +1,7 @@
 <script lang="ts">
   import Controls from './components/Controls.svelte';
   import ThreeViewer from './components/ThreeViewer.svelte';
+  import StatusDisplay from './components/StatusDisplay.svelte';
   import { theme } from './stores/theme';
   import { selection } from './stores/selection';
   import { MessageHandler } from './services/messageHandler';
@@ -42,11 +43,14 @@
       fallback="Unable to load preview. Please try selecting a different image."
       onError={handlePreviewError}
     >
-      <ThreeViewer
-        imageData={$selection.exportedImage?.data}
-        {selectedColor}
-        onScreenshotCapture={handleScreenshotCapture}
-      />
+      <div class="preview-container">
+        <ThreeViewer
+          imageData={$selection.exportedImage?.data}
+          {selectedColor}
+          onScreenshotCapture={handleScreenshotCapture}
+        />
+        <StatusDisplay />
+      </div>
     </ErrorBoundary>
 
     <ErrorBoundary
@@ -62,5 +66,11 @@
     padding: var(--spacing-8);
     max-width: 408px;
     margin: 0 auto;
+  }
+
+  .preview-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 </style>
