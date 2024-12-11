@@ -138,6 +138,61 @@
     );
   }
 
+  // Add screenshot capture handler
+  function handleScreenshotRequest(): void {
+    if (!scene || !camera) {
+      console.log('Scene or camera not ready');
+      return;
+    }
+
+    try {
+      console.log('Starting screenshot capture...');
+      // Store original settings
+      const originalSize = {
+        width: renderer.domElement.width,
+        height: renderer.domElement.height,
+      };
+      console.log('Original size:', originalSize);
+
+      const originalPixelRatio = renderer.getPixelRatio();
+      const originalBackground = scene.background;
+
+      // Set high-res render settings
+      renderer.setSize(2000, 2000);
+      renderer.setPixelRatio(2);
+      scene.background = null;
+
+      // Render high-res version
+      renderer.render(scene, camera);
+
+      // Get the canvas data
+      const imageData = renderer.domElement.toDataURL('image/png');
+      console.log('Image data length:', imageData.length);
+
+      // Convert base64 to Uint8Array
+      const binaryString = atob(imageData.split(',')[1]);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      console.log('Converted to bytes:', bytes.length);
+
+      // Restore original settings
+      renderer.setSize(originalSize.width, originalSize.height);
+      renderer.setPixelRatio(originalPixelRatio);
+      scene.background = originalBackground;
+
+      // Force a re-render with original settings
+      renderer.render(scene, camera);
+
+      // Send the data back through the callback
+      console.log('Sending screenshot data to callback...');
+      onScreenshotCapture(bytes);
+    } catch (error) {
+      console.error('Failed to capture screenshot:', error);
+    }
+  }
+
   onMount(() => {
     let animationFrameId: number;
 
@@ -194,11 +249,18 @@
     }
     animate();
 
+    // Add event listener for screenshot capture
+    container.addEventListener('capture-screenshot', handleScreenshotRequest);
+
     // Cleanup
     return () => {
       cancelAnimationFrame(animationFrameId);
       controls.dispose();
       renderer.dispose();
+      container.removeEventListener(
+        'capture-screenshot',
+        handleScreenshotRequest
+      );
     };
   });
 </script>

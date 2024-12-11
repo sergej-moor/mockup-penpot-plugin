@@ -59,7 +59,20 @@ export class MessageHandler {
           break;
 
         case 'capture-screenshot':
-          window.dispatchEvent(new MessageEvent('message', { data: message }));
+          if (event.source === window.parent) {
+            console.log(
+              'MessageHandler: Received capture-screenshot from plugin'
+            );
+            const viewer = document.querySelector('.viewer-container');
+            if (viewer) {
+              console.log('Found viewer, dispatching event');
+              viewer.dispatchEvent(new CustomEvent('capture-screenshot'));
+            } else {
+              console.log('Could not find viewer element');
+            }
+          } else {
+            console.log('Ignoring capture-screenshot from non-plugin source');
+          }
           break;
 
         default:
