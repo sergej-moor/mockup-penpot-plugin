@@ -53,18 +53,18 @@
           />
         </div>
         <div class="text-xs">
-          Model made by <a
-            href="https://sketchfab.com/3d-models/free-iphone-13-pro-2021-a35156d91cf44e70a2fdfeade54ae0b2"
-            >SDC PERFORMANCE™️</a
-          >
-          <br />
-          under
-          <a
-            target="_blank"
-            href="https://creativecommons.org/licenses/by/4.0/"
-          >
-            CC 4.0</a
-          >
+          <details class="accordion">
+            <summary class="cursor-pointer">View Attribution</summary>
+            <div class="mt-2">
+              Model made by <p>
+                SDC PERFORMANCE™️
+                ("https://sketchfab.com/3d-models/free-iphone-13-pro-2021-a35156d91cf44e70a2fdfeade54ae0b2")
+              </p>
+              <br />
+              under
+              <p>CC 4.0 (https://creativecommons.org/licenses/by/4.0/)</p>
+            </div>
+          </details>
           <br />
           Recommended resolution: 2532px x 1170px
         </div>
@@ -90,5 +90,15 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .accordion {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .accordion summary:hover {
+    color: #666;
   }
 </style>
