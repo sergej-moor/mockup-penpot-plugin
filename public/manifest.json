@@ -1,0 +1,7 @@
+{
+  "name": "3D Mockups",
+  "description": "Realistic mockups for your screen designs",
+  "code": "/plugin.js",
+  "icon": "/icon.png",
+  "permissions": ["content:read", "content:write"]
+}
