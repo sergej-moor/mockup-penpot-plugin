@@ -4,11 +4,11 @@
   import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
   import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-  import { MODEL_CONFIGS } from '../config/models';
+  import { MODEL_CONFIGS, DEFAULT_MODEL } from '../config/models';
 
   export let imageData: Uint8Array | undefined;
   export let selectedColor = '#000000';
-  export let selectedModel = 'iphone';
+  export let selectedModel = DEFAULT_MODEL;
   export let onScreenshotCapture: (data: Uint8Array) => void;
 
   let container: HTMLDivElement;
@@ -168,7 +168,16 @@
         model.scale.multiplyScalar(scale);
 
         // Set initial rotation (90 degrees around Y axis)
-        model.rotation.y = -Math.PI / 2;
+        model.position.set(
+          currentConfig.initialPosition.x,
+          currentConfig.initialPosition.y,
+          currentConfig.initialPosition.z
+        );
+        model.rotation.set(
+          currentConfig.initialRotation.x,
+          currentConfig.initialRotation.y,
+          currentConfig.initialRotation.z
+        );
 
         // If we have image data, update the texture
         if (imageData) {
@@ -250,8 +259,8 @@
     scene.background = new THREE.Color(0xffffff);
 
     // Add axes helper
-    const axesHelper = new THREE.AxesHelper(0.5); // Size of 0.5 units
-    scene.add(axesHelper);
+    /*    const axesHelper = new THREE.AxesHelper(0.5); // Size of 0.5 units
+    scene.add(axesHelper); */
 
     // Camera setup
     camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);

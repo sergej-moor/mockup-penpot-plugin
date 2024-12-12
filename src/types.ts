@@ -85,4 +85,6 @@ export interface ModelConfig {
   matteMeshNames: string[];
   defaultScreenshot: string;
   defaultMatte: boolean;
+  initialPosition: { x: number; y: number; z: number };
+  initialRotation: { x: number; y: number; z: number };
 }

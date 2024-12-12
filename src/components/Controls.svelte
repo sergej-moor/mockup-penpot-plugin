@@ -1,11 +1,11 @@
 <script lang="ts">
   import { selection } from '../stores/selection';
   import { tooltip } from '../actions/tooltip';
-  import { MODEL_CONFIGS } from '../config/models';
+  import { MODEL_CONFIGS, DEFAULT_MODEL } from '../config/models';
 
   export let onColorChange: (event: Event) => void;
   export let onModelChange: (modelId: string) => void;
-  export let selectedModel = 'iphone';
+  export let selectedModel = DEFAULT_MODEL;
 
   $: isDisabled = !$selection.exportedImage?.data;
 
@@ -21,7 +21,9 @@
 
 <div class="flex flex-col gap-4">
   <div class="form-group">
-    <label class="select-label" for="model-select">Device Selection</label>
+    <label class="select-label-hidden" for="model-select"
+      >Device Selection</label
+    >
     <select
       class="select w-full"
       id="model-select"
