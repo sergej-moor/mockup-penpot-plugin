@@ -204,16 +204,11 @@
     }
 
     try {
-      console.log('Starting screenshot capture...');
       // Store original settings
       const originalSize = {
-        width: renderer.domElement.width,
-        height: renderer.domElement.height,
+        width: 350, // Force original size to be 350x350
+        height: 350,
       };
-      console.log('Original size:', originalSize);
-
-      const originalPixelRatio = renderer.getPixelRatio();
-      const originalBackground = scene.background;
 
       // Set high-res render settings
       renderer.setSize(2000, 2000);
@@ -225,7 +220,6 @@
 
       // Get the canvas data
       const imageData = renderer.domElement.toDataURL('image/png');
-      console.log('Image data length:', imageData.length);
 
       // Convert base64 to Uint8Array
       const binaryString = atob(imageData.split(',')[1]);
@@ -233,18 +227,16 @@
       for (let i = 0; i < binaryString.length; i++) {
         bytes[i] = binaryString.charCodeAt(i);
       }
-      console.log('Converted to bytes:', bytes.length);
 
-      // Restore original settings
-      renderer.setSize(originalSize.width, originalSize.height);
-      renderer.setPixelRatio(originalPixelRatio);
-      scene.background = originalBackground;
+      // Restore to exactly 350x350
+      renderer.setSize(350, 350);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      scene.background = null;
 
       // Force a re-render with original settings
       renderer.render(scene, camera);
 
       // Send the data back through the callback
-      console.log('Sending screenshot data to callback...');
       onScreenshotCapture(bytes);
     } catch (error) {
       console.error('Failed to capture screenshot:', error);

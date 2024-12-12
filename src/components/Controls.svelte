@@ -50,7 +50,6 @@
         id="colorPicker"
         type="color"
         on:input={onColorChange}
-        disabled={isDisabled}
         class="color-picker-input w-full"
       />
     </div>
@@ -58,7 +57,6 @@
 
   <button
     on:click={handleExport}
-    disabled={isDisabled}
     data-appearance="primary"
     class="flex-1 flex justify-center gap-2 items-center"
     use:tooltip={{
@@ -70,39 +68,3 @@
     Export View
   </button>
 </div>
-
-<style>
-  .select-label {
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-    color: var(--text-color);
-  }
-
-  .select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--surface-color);
-    color: var(--text-color);
-    width: 100%;
-  }
-
-  .select:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .color-picker-input {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .color-picker-input:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-</style>
