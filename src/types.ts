@@ -87,4 +87,15 @@ export interface ModelConfig {
   defaultMatte: boolean;
   initialPosition: { x: number; y: number; z: number };
   initialRotation: { x: number; y: number; z: number };
+  attribution: {
+    author: string;
+    authorUrl: string;
+    modelUrl: string;
+    license: string;
+    licenseUrl: string;
+  };
+  recommendedResolution: {
+    width: number;
+    height: number;
+  };
 }

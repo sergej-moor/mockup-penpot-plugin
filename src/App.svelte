@@ -6,9 +6,12 @@
   import { selection } from './stores/selection';
   import { MessageHandler } from './services/messageHandler';
   import ErrorBoundary from './components/ErrorBoundary.svelte';
+  import { MODEL_CONFIGS } from './config/models';
 
   let selectedColor = '#000000';
   let selectedModel = 'iphone';
+
+  $: currentModel = MODEL_CONFIGS[selectedModel];
 
   function handlePreviewError(error: Error): void {
     console.error('Preview error:', error);
@@ -62,17 +65,18 @@
           <details class="accordion">
             <summary class="cursor-pointer">View Attribution</summary>
             <div class="mt-2">
-              Model made by <p>
-                SDC PERFORMANCE™️
-                ("https://sketchfab.com/3d-models/free-iphone-13-pro-2021-a35156d91cf44e70a2fdfeade54ae0b2")
-              </p>
+              Model made by {currentModel.attribution.author}
               <br />
-              under
-              <p>CC 4.0 (https://creativecommons.org/licenses/by/4.0/)</p>
+              ({currentModel.attribution.modelUrl})
+              <br />
+              under {currentModel.attribution.license}
+              <br />
+              ({currentModel.attribution.licenseUrl})
             </div>
           </details>
           <br />
-          Recommended resolution: 2532px x 1170px
+          Recommended resolution: {currentModel.recommendedResolution.width}px x{' '}
+          {currentModel.recommendedResolution.height}px
         </div>
       </div>
     </ErrorBoundary>
