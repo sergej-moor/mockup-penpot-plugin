@@ -35,7 +35,7 @@
 </script>
 
 <div class="rounded-lg border border-gray-200 dark:border-gray-700">
-  <div class="relative w-[300px] h-[300px] min-h-[100px]">
+  <div class="relative w-[350px] h-[350px] min-h-[100px]">
     {#if $selection.error}
       <div class="flex items-center justify-center h-full p-4">
         <p class="text-sm text-red-600 text-center">{$selection.error}</p>
@@ -46,7 +46,7 @@
         <img
           src={previewUrl}
           alt="Selected shape"
-          class="w-[300px] h-[300px] max-w-full max-h-[300px] p-2 object-contain rounded transition-opacity"
+          class="w-[350px] h-[350px] max-w-full p-2 object-contain rounded transition-opacity"
           class:opacity-50={$selection.isPreviewLoading}
         />
 

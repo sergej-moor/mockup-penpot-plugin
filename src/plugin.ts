@@ -13,8 +13,8 @@ import type {
 // Configuration
 const PLUGIN_CONFIG = {
   name: '3D Mockups',
-  width: 340,
-  height: 682,
+  width: 440,
+  height: 782,
 } as const;
 
 // Plugin initialization

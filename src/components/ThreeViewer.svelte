@@ -256,7 +256,8 @@
 
     // Scene setup
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
+    // Remove or comment out this line to make background transparent
+    // scene.background = new THREE.Color(0xffffff);
 
     // Add axes helper
     /*    const axesHelper = new THREE.AxesHelper(0.5); // Size of 0.5 units
@@ -271,11 +272,12 @@
       antialias: true,
       alpha: true,
     });
-    renderer.setSize(300, 300);
+    renderer.setSize(350, 350);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.5;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
     // Controls setup
@@ -334,8 +336,8 @@
 
 <style>
   .viewer-container {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     border: 2px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;

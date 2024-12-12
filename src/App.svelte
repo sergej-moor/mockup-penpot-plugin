@@ -61,7 +61,7 @@
             onScreenshotCapture={handleScreenshotCapture}
           />
         </div>
-        <div class="text-xs">
+        <div class="text-xs max-w-[350px]">
           <details class="accordion">
             <summary class="cursor-pointer">View Attribution</summary>
             <div class="mt-2">
@@ -96,7 +96,7 @@
 <style>
   main {
     padding: var(--spacing-8);
-    max-width: 408px;
+
     margin: 0 auto;
   }
 
