@@ -130,6 +130,14 @@
         const maxDim = Math.max(size.x, size.y, size.z);
         const scale = 1 / maxDim;
         model.scale.multiplyScalar(scale);
+
+        // Set initial rotation (90 degrees around Y axis)
+        model.rotation.y = -Math.PI / 2;
+
+        // If we have image data, update the texture
+        if (imageData) {
+          updateScreenTexture(imageData);
+        }
       },
       undefined,
       (error) => {
