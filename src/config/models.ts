@@ -4,7 +4,7 @@ export const DEFAULT_MODEL = 'Laptop' as const;
 
 export const MODEL_CONFIGS: Record<string, ModelConfig> = {
   iphone: {
-    name: 'iPhone',
+    name: 'Phone',
     modelPath: '/iphone_mockup.glb',
     screenMeshName: 'Object_13',
     caseMaterialNames: ['Back.001', 'GOLD.001'],
