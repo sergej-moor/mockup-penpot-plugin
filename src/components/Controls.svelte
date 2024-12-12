@@ -50,7 +50,7 @@
         id="colorPicker"
         type="color"
         on:input={onColorChange}
-        class="color-picker-input w-full p-0"
+        class="color-picker-input w-full p-0 bg-none h-8 border-none rounded cursor-pointer"
       />
     </div>
   </div>
@@ -58,7 +58,7 @@
   <button
     on:click={handleExport}
     data-appearance="primary"
-    class="flex-1 flex justify-center gap-2 items-center"
+    class="flex-1 flex justify-center gap-2 items-center py-2 mt-4"
     use:tooltip={{
       text: 'Export the current view as an image',
       position: 'bottom',
@@ -68,3 +68,14 @@
     Export View
   </button>
 </div>
+
+<style>
+  #colorPicker {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  #colorPicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+</style>

@@ -48,7 +48,7 @@
   </h2>
   <div class="flex flex-col gap-4">
     <ErrorBoundary
-      fallback="Unable to load preview. Please try selecting a different image."
+      fallback="Unable to load preview. Please reload the plugin. "
       onError={handlePreviewError}
     >
       <div class="preview-container">
@@ -82,7 +82,7 @@
     </ErrorBoundary>
 
     <ErrorBoundary
-      fallback="Controls are temporarily unavailable. Please refresh the page."
+      fallback="Controls are temporarily unavailable. Please reload the plugin."
     >
       <Controls
         onColorChange={handleColorChange}
