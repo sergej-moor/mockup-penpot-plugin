@@ -4,9 +4,11 @@
   import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
   import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+  import { MODEL_CONFIGS } from '../config/models';
 
   export let imageData: Uint8Array | undefined;
   export let selectedColor = '#000000';
+  export let selectedModel = 'iphone';
   export let onScreenshotCapture: (data: Uint8Array) => void;
 
   let container: HTMLDivElement;
@@ -19,7 +21,9 @@
   let controls: OrbitControls;
 
   const ENV_MAP_PATH = '/meadow_2_2k.hdr';
-  const MODEL_PATH = '/iphone_mockup.glb';
+
+  // Current model configuration
+  let currentConfig = MODEL_CONFIGS[selectedModel];
 
   const MATERIAL_PRESETS = {
     shiny: {
@@ -42,6 +46,24 @@
   // Watch for changes in selectedColor
   $: if (selectedColor && caseMaterials.length > 0) {
     updateCaseColor(selectedColor);
+  }
+
+  // Watch for model changes
+  let previousModel = selectedModel;
+  $: if (selectedModel !== previousModel && scene) {
+    console.log('Model changed from', previousModel, 'to:', selectedModel);
+    previousModel = selectedModel;
+    currentConfig = MODEL_CONFIGS[selectedModel];
+    console.log('New config:', currentConfig);
+    // Clear existing model
+    if (model) {
+      console.log('Removing existing model');
+      scene.remove(model);
+      model = undefined;
+      screenMesh = undefined;
+      caseMaterials = [];
+    }
+    loadModel();
   }
 
   function updateScreenTexture(data: Uint8Array): void {
@@ -86,16 +108,20 @@
   }
 
   function loadModel(): void {
+    console.log('Loading model with config:', currentConfig);
+    console.log('Model path:', currentConfig?.modelPath);
+
     const loader = new GLTFLoader();
     loader.load(
-      MODEL_PATH,
+      currentConfig.modelPath,
       (gltf) => {
+        console.log('Model loaded successfully:', gltf);
         model = gltf.scene;
         scene.add(model);
 
         model.traverse((child) => {
           if (child instanceof THREE.Mesh) {
-            if (child.name === 'Object_13') {
+            if (child.name === currentConfig.screenMeshName) {
               screenMesh = child;
               const material = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
@@ -103,16 +129,26 @@
               });
               screenMesh.material = material;
             } else {
-              const materialPreset =
-                child.name === 'Object_6'
-                  ? MATERIAL_PRESETS.matte
-                  : MATERIAL_PRESETS.shiny;
+              // Check if this mesh should be matte
+              const isMatteMesh =
+                currentConfig.defaultMatte ||
+                currentConfig.matteMeshNames.includes(child.name);
+
+              const materialPreset = isMatteMesh
+                ? MATERIAL_PRESETS.matte
+                : MATERIAL_PRESETS.shiny;
 
               if (child.material instanceof THREE.MeshStandardMaterial) {
                 child.material.metalness = materialPreset.metalness;
                 child.material.roughness = materialPreset.roughness;
                 child.material.envMapIntensity = materialPreset.envMapIntensity;
-                caseMaterials.push(child.material);
+
+                // Only add to caseMaterials if it's a case material
+                if (
+                  currentConfig.caseMaterialNames.includes(child.material.name)
+                ) {
+                  caseMaterials.push(child.material);
+                }
               }
             }
           }
@@ -139,7 +175,12 @@
           updateScreenTexture(imageData);
         }
       },
-      undefined,
+      (progress) => {
+        console.log(
+          'Loading progress:',
+          (progress.loaded / progress.total) * 100 + '%'
+        );
+      },
       (error) => {
         console.error('Error loading GLB model:', error);
       }
@@ -208,6 +249,10 @@
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
 
+    // Add axes helper
+    const axesHelper = new THREE.AxesHelper(0.5); // Size of 0.5 units
+    scene.add(axesHelper);
+
     // Camera setup
     camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     camera.position.set(0, 0, 2);
@@ -242,10 +287,13 @@
     mainLight.position.set(5, 5, 5);
     scene.add(mainLight);
 
-    // Load environment map
+    // Load environment map and initial model
     new RGBELoader().load(ENV_MAP_PATH, (texture) => {
+      console.log('Environment map loaded');
       texture.mapping = THREE.EquirectangularReflectionMapping;
       scene.environment = texture;
+      currentConfig = MODEL_CONFIGS[selectedModel];
+      console.log('Initial config:', currentConfig);
       loadModel();
     });
 

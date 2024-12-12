@@ -76,3 +76,13 @@ export type PluginMessage =
     }
   | { type: 'fill-upload-complete' }
   | { type: 'delete-top-layer' };
+
+export interface ModelConfig {
+  name: string;
+  modelPath: string;
+  screenMeshName: string;
+  caseMaterialNames: string[];
+  matteMeshNames: string[];
+  defaultScreenshot: string;
+  defaultMatte: boolean;
+}

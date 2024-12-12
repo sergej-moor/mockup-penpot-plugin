@@ -8,6 +8,7 @@
   import ErrorBoundary from './components/ErrorBoundary.svelte';
 
   let selectedColor = '#000000';
+  let selectedModel = 'iphone';
 
   function handlePreviewError(error: Error): void {
     console.error('Preview error:', error);
@@ -27,6 +28,10 @@
       },
       '*'
     );
+  }
+
+  function handleModelChange(modelId: string): void {
+    selectedModel = modelId;
   }
 </script>
 
@@ -49,6 +54,7 @@
           <ThreeViewer
             imageData={$selection.exportedImage?.data}
             {selectedColor}
+            {selectedModel}
             onScreenshotCapture={handleScreenshotCapture}
           />
         </div>
@@ -74,7 +80,11 @@
     <ErrorBoundary
       fallback="Controls are temporarily unavailable. Please refresh the page."
     >
-      <Controls onColorChange={handleColorChange} />
+      <Controls
+        onColorChange={handleColorChange}
+        onModelChange={handleModelChange}
+        {selectedModel}
+      />
     </ErrorBoundary>
   </div>
 </main>
