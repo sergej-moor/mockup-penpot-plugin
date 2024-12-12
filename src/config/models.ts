@@ -30,7 +30,7 @@ export const MODEL_CONFIGS: Record<string, ModelConfig> = {
     name: 'Laptop',
     modelPath: '/macbook_mockup.glb',
     screenMeshName: 'Object_21',
-    caseMaterialNames: ['Material.017'],
+    caseMaterialNames: ['Material.003'],
     matteMeshNames: ['Object_4', 'Object_18'],
     defaultScreenshot: '/my_screenshot.jpg',
     defaultMatte: true,
@@ -45,8 +45,8 @@ export const MODEL_CONFIGS: Record<string, ModelConfig> = {
       licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
     },
     recommendedResolution: {
-      width: 2880,
-      height: 1800,
+      width: 3456,
+      height: 2234,
     },
   },
 };

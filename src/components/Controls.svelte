@@ -41,7 +41,7 @@
       class="w-full flex flex-col"
       use:tooltip={{
         text: 'Change the color of the device',
-        position: 'left',
+        position: 'top',
         maxWidth: 'max-w-[200px]',
       }}
     >
@@ -50,7 +50,7 @@
         id="colorPicker"
         type="color"
         on:input={onColorChange}
-        class="color-picker-input w-full"
+        class="color-picker-input w-full p-0"
       />
     </div>
   </div>

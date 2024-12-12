@@ -36,6 +36,11 @@
       roughness: 0.8,
       envMapIntensity: 0.5,
     },
+    semiMatte: {
+      metalness: 0.9,
+      roughness: 0.2,
+      envMapIntensity: 1.0,
+    },
   };
 
   // Watch for changes in imageData
@@ -134,9 +139,11 @@
                 currentConfig.defaultMatte ||
                 currentConfig.matteMeshNames.includes(child.name);
 
-              const materialPreset = isMatteMesh
-                ? MATERIAL_PRESETS.matte
-                : MATERIAL_PRESETS.shiny;
+              const materialPreset = currentConfig.defaultMatte
+                ? MATERIAL_PRESETS.semiMatte
+                : isMatteMesh
+                  ? MATERIAL_PRESETS.matte
+                  : MATERIAL_PRESETS.shiny;
 
               if (child.material instanceof THREE.MeshStandardMaterial) {
                 child.material.metalness = materialPreset.metalness;
