@@ -23,7 +23,7 @@
   }
 
   function handleScreenshotCapture(imageData: Uint8Array): void {
-    console.log('App received screenshot data:', imageData.length);
+    /*   console.log('App received screenshot data:', imageData.length); */
     window.parent.postMessage(
       {
         type: 'upload-screenshot',

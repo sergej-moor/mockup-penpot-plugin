@@ -60,18 +60,18 @@ export class MessageHandler {
 
         case 'capture-screenshot':
           if (event.source === window.parent) {
-            console.log(
+            /*  console.log(
               'MessageHandler: Received capture-screenshot from plugin'
-            );
+            ); */
             const viewer = document.querySelector('.viewer-container');
             if (viewer) {
-              console.log('Found viewer, dispatching event');
+              /*  console.log('Found viewer, dispatching event'); */
               viewer.dispatchEvent(new CustomEvent('capture-screenshot'));
             } else {
-              console.log('Could not find viewer element');
+              /*    console.log('Could not find viewer element'); */
             }
           } else {
-            console.log('Ignoring capture-screenshot from non-plugin source');
+            /*   console.log('Ignoring capture-screenshot from non-plugin source'); */
           }
           break;
 

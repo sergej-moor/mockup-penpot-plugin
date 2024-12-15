@@ -216,16 +216,16 @@ async function handlePluginMessage(message: PluginMessage): Promise<void> {
 
     case 'upload-screenshot':
       try {
-        console.log(
+        /*   console.log(
           'Plugin received screenshot data:',
           message.imageData.length
-        );
+        ); */
         const uploadedImage = await penpot.uploadMediaData(
           'screenshot.png',
           new Uint8Array(message.imageData),
           'image/png'
         );
-        console.log('Image uploaded successfully:', uploadedImage);
+        /*  console.log('Image uploaded successfully:', uploadedImage); */
 
         if (!uploadedImage) throw new Error('Failed to upload screenshot');
 
@@ -245,7 +245,7 @@ async function handlePluginMessage(message: PluginMessage): Promise<void> {
         rect.fills = [imageFill];
         rect.name = 'Device Mockup';
 
-        console.log('Rectangle created with image fill');
+        /*    console.log('Rectangle created with image fill'); */
         sendMessage({ type: 'fill-upload-complete' });
       } catch (error) {
         console.error('Failed to process screenshot:', error);

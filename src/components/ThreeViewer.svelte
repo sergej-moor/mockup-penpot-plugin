@@ -56,13 +56,13 @@
   // Watch for model changes
   let previousModel = selectedModel;
   $: if (selectedModel !== previousModel && scene) {
-    console.log('Model changed from', previousModel, 'to:', selectedModel);
+    /*    console.log('Model changed from', previousModel, 'to:', selectedModel); */
     previousModel = selectedModel;
     currentConfig = MODEL_CONFIGS[selectedModel];
-    console.log('New config:', currentConfig);
+    /*  console.log('New config:', currentConfig); */
     // Clear existing model
     if (model) {
-      console.log('Removing existing model');
+      /*      console.log('Removing existing model'); */
       scene.remove(model);
       model = undefined;
       screenMesh = undefined;
@@ -113,14 +113,14 @@
   }
 
   function loadModel(): void {
-    console.log('Loading model with config:', currentConfig);
-    console.log('Model path:', currentConfig?.modelPath);
+    /*   console.log('Loading model with config:', currentConfig);
+    console.log('Model path:', currentConfig?.modelPath); */
 
     const loader = new GLTFLoader();
     loader.load(
       currentConfig.modelPath,
       (gltf) => {
-        console.log('Model loaded successfully:', gltf);
+        /*  console.log('Model loaded successfully:', gltf); */
         model = gltf.scene;
         scene.add(model);
 
@@ -192,10 +192,10 @@
         }
       },
       (progress) => {
-        console.log(
+        /*   console.log(
           'Loading progress:',
           (progress.loaded / progress.total) * 100 + '%'
-        );
+        ); */
       },
       (error) => {
         console.error('Error loading GLB model:', error);
@@ -206,7 +206,7 @@
   // Add screenshot capture handler
   function handleScreenshotRequest(): void {
     if (!scene || !camera) {
-      console.log('Scene or camera not ready');
+      /*   console.log('Scene or camera not ready'); */
       return;
     }
 
@@ -299,11 +299,11 @@
 
     // Load environment map and initial model
     new RGBELoader().load(ENV_MAP_PATH, (texture) => {
-      console.log('Environment map loaded');
+      /*   console.log('Environment map loaded'); */
       texture.mapping = THREE.EquirectangularReflectionMapping;
       scene.environment = texture;
       currentConfig = MODEL_CONFIGS[selectedModel];
-      console.log('Initial config:', currentConfig);
+      /*   console.log('Initial config:', currentConfig); */
       loadModel();
     });
 
